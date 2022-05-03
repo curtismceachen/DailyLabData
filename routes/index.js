@@ -3,9 +3,9 @@ var router = require('express').Router();
 let passport = require('passport')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('employees', { title: 'Express' });
-});
+//router.get('/', function(req, res, next) {
+  //res.render('employees', { title: 'Express' });
+//});
 
 //router.get('/', function(req, res) {
   //res.redirect('/employees');
@@ -23,14 +23,14 @@ router.get('/auth/google', passport.authenticate(
 router.get('/oauth2callback', passport.authenticate(
   'google',
   {
-    successRedirect: '/employees',
-    failureRedirect: '/employees'
+    successRedirect: '/',
+    failureRedirect: '/'
   }
 ))
 
 router.get('/logout', function(req, res) {
   req.logout()
-  res.redirect('/employees')
+  res.redirect('/')
 })
 
 module.exports = router;

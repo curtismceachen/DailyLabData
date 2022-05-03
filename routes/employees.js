@@ -7,7 +7,7 @@ var employeesCtrl = require('../controllers/employees');
   //res.send('respond with a resource');
 //});
 
-router.get('/employees', employeesCtrl.index)
+router.get('/', employeesCtrl.index)
 
 //function isLoggedIn(req, res, next) {
   //if (req.isAuthenticated()) return next();

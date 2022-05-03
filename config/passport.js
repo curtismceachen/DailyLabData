@@ -9,7 +9,7 @@ passport.use(new GoogleStrategy({
     callbackURL: process.env.GOOGLE_CALLBACK
 }, function(accessToken, refreshToken, profile, cb) {
 // ^^when a user logs in with oauth 
-// check if in DB, if not, add them
+// check if in DB if not, add them
     Employee.findOne({'googleId': profile.id}, function(err, employee) {
         if (err) return cb(err)
         if (employee) {

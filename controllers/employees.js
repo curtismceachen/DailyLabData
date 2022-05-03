@@ -18,4 +18,4 @@ function index(req, res, next) {
             user: req.user
         });
     });
-}
+} 
