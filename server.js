@@ -1,3 +1,4 @@
+//https://tp-lab-data.herokuapp.com/
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -11,6 +12,7 @@ require('dotenv').config()
 
 var indexRouter = require('./routes/index');
 var employeesRouter = require('./routes/employees');
+var labsRouter = require('./routes/labs')
 
 var app = express();
 
@@ -36,7 +38,8 @@ app.use(passport.session());
 
 
 app.use('/', indexRouter);
-app.use('/', employeesRouter);
+app.use('/employees', employeesRouter);
+app.use('/labs', labsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

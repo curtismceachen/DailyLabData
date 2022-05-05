@@ -1,7 +1,4 @@
 <%- include('../partials/header') %>
-<h1>Lab Data</h1>
-<p>Welcome to</p>
-<% if (employees.length) { %>
 <table class="centered">
     <thead>
       <tr>
@@ -16,9 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <% employees.forEach(function(e) { %>
-        <% if (e.labs.length) { %>
-          <% e.labs.forEach(function(l) { %>})
+    
         <tr>
           <td class="ellipsis"><%= l.date %></td>
           <td><%= l.reactPh %></td>
@@ -27,14 +22,9 @@
           <td><%= l.temperature %></td>
           <td><%= l.dissOx %></td>
           <td><%= e.name %></td>
-          <td><a href="/labs/<%= l._id %>">DETAILS</a></td>
         </tr>
-            <% }) %>
-          <% } %>
-        <% }); %>
+           
       </tbody>
     </table>
-<% } else { %>
-    <h5>No Lab Entries Yet</h5>
-<% } %>
+
 <%- include('../partials/footer') %>

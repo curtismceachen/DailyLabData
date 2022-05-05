@@ -3,9 +3,9 @@ var router = require('express').Router();
 let passport = require('passport')
 
 /* GET home page. */
-//router.get('/', function(req, res, next) {
-  //res.render('employees', { title: 'Express' });
-//});
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
 
 //router.get('/', function(req, res) {
   //res.redirect('/employees');

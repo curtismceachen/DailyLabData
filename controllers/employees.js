@@ -1,7 +1,9 @@
 const Employee = require('../models/employee');
+//const Lab = require('../models/lab')
 
 module.exports = {
-    index
+    index,
+    create
 }
 
 function index(req, res, next) {
@@ -18,4 +20,8 @@ function index(req, res, next) {
             user: req.user
         });
     });
-} 
+}
+
+function create() {
+    console.log("this is running")
+}
