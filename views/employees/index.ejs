@@ -1,6 +1,5 @@
 <%- include('../partials/header') %>
-<h1>Lab Data</h1>
-<p>Welcome to</p>
+<h1>Daily Lab Data</h1>
 <% if (employees.length) { %>
 <table class="centered">
     <thead>
@@ -18,7 +17,7 @@
     <tbody>
       <% employees.forEach(function(e) { %>
         <% if (e.labs.length) { %>
-          <% e.labs.forEach(function(l) { %>})
+          <% e.labs.forEach(function(l) { %>
         <tr>
           <td class="ellipsis"><%= l.date %></td>
           <td><%= l.reactPh %></td>
@@ -28,6 +27,9 @@
           <td><%= l.dissOx %></td>
           <td><%= e.name %></td>
           <td><a href="/labs/<%= l._id %>">DETAILS</a></td>
+          <td><form action="/labs/<%= l._id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete</button></td>
+          </form>
         </tr>
             <% }) %>
           <% } %>

@@ -4,7 +4,10 @@ module.exports = {
     new: newLab,
     create,
     index,
-    show
+    show,
+    delete: deleteLab,
+    edit,
+    update
 }
 
 function newLab(req, res) {
@@ -44,7 +47,40 @@ function index(req, res) {
 }
 
 function show(req, res) {
-  Employee.findById(req.params.id, function(err, employee) {
-    res.render('employees/show', { employee, user: req.user })
+  let lab = req.user.labs.id(req.params.id)
+  console.log(lab)
+  Employee.findById(req.user.id, function(err, employee) {
+    console.log("THIS IS THE USER ID", req.user.labs)
+    let myLab = employee.labs.id(req.params.id) //for update + delete*
+    console.log("THIS IS MYLAB", myLab)
+    res.render('employees/show', { employee, user: req.user, myLab })
   })
+}
+
+function deleteLab(req, res) {
+  Employee.findById(req.user.id, function(err, employee) {
+    employee.labs.id(req.params.id).remove()
+    employee.save(function(err) {
+      res.redirect('/labs')
+    })
+  })
+}
+
+function edit(req, res) {
+  Employee.findById(req.user.id, function(err, employee) {
+    res.render('employees/edit', {lab: employee.labs.id(req.params.id), user: req.user})
+  })
+}
+
+function update(req, res) {
+  Employee.findById(req.user.id, function(err, employee) {
+    //let myLab = employee.labs.id(req.params.id) //for update + delete*
+    employee.save(function(err) {
+      res.redirect('/labs')
+    })
+    //res.render('employees/show', { employee, user: req.user, myLab })
+  })
+  
+  //Employee.updateOne(req.params.id, req.body)
+  //res.redirect('/labs')
 }

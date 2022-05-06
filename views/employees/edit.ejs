@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+<h2>Edit Lab Entry</h2>
+
+<form action="/labs/<%= lab._id %>?_method=PUT" method="POST">
+
+  <label>Reactive phosphorous:
+    <input type ="number" name="reactPh" value="<%= lab.reactPh %>">
+  </label><br>
+  <label>pH:
+    <input type ="number" name="pH" value="<%= lab.pH %>">
+  </label><br>
+  <label>Ammonia:
+    <input type ="number" name="ammonia" value="<%= lab.ammonia %>">
+  </label><br>
+  <label>Temperature:
+    <input type ="number" name="temperature" value="<%= lab.temperature %>"
+  </label><br>
+  <label>Dissolved oxygen:
+    <input type ="number" name="dissOx" value="<%= lab.dissOx %>">
+  </label><br>
+  <label>Date:
+    <input type="date" name="date" value="<%= lab.date %>">
+  </label><br>
+  <input type="submit" value="Add lab results">
+</form>
+
+<%- include('../partials/footer') %>

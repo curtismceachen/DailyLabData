@@ -13,16 +13,18 @@
       </tr>
     </thead>
     <tbody>
-    
+        
         <tr>
-          <td class="ellipsis"><%= l.date %></td>
-          <td><%= l.reactPh %></td>
-          <td><%= l.pH %></td>
-          <td><%= l.ammonia %></td>
-          <td><%= l.temperature %></td>
-          <td><%= l.dissOx %></td>
-          <td><%= e.name %></td>
+          <td class="ellipsis"><%= myLab.date %></td>
+          <td><%= myLab.reactPh %></td>
+          <td><%= myLab.pH %></td>
+          <td><%= myLab.ammonia %></td>
+          <td><%= myLab.temperature %></td>
+          <td><%= myLab.dissOx %></td>
+          <td><%= employee.name %></td>
+          <a href="/labs/<%= myLab._id %>/edit">Edit</a>
         </tr>
+       
            
       </tbody>
     </table>
