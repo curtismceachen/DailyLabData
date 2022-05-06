@@ -7,7 +7,6 @@ var labSchema = new mongoose.Schema({
     dissOx: Number,
     ammonia: Number,
     date: Date,
-    //employees: [employeeSchema]
 })
 
 var employeeSchema = new mongoose.Schema({
@@ -17,8 +16,5 @@ var employeeSchema = new mongoose.Schema({
     googleId: String
 })
 
-
-
-//627141a888ca03d1bfdc99a3 need to work this in so it expects it
 
 module.exports = mongoose.model('Employee', employeeSchema);
