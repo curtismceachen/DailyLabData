@@ -4,14 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab Data</title>
+    <title>Daily Lab Data</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
-    <a href="/labs">Lab Records</a> 
-    <h1>Daily Lab Data</h1>
-    <p>Welcome to Daily Lab Data<%=  %></p>
+    <nav>
+        <ul>
+            <li>
+                <a>Home</a>
+            </li>
+            <li>
+            <% if (user) { %>    
+                <a href="/labs">View Lab Entries</a>
+            <% } %>
+            </li>
+        </ul>
+        <ul class="right">
+            <li>
+                <% if (user) { %>
+                    <a href="/logout">Log Out</a>
+                <% } else { %>
+                    <a href="/auth/google">Login with Google</a>
+                <% } %>
+            </li>
+        </ul>
+    </nav>
+    <main class="background-img">
+        <h1>Daily Lab Data</h1>
+        <% if(user) { %>
+        <h5>Welcome to Daily Lab Data, <%= user.name %>!</h5>
+        <h6>Start by <a href='/labs'>viewing lab entries.</a></h6>
+        <% } else { %>
+        <h5>Welcome to Daily Lab Data</h5>
+        <div>Start by signing in!</div>
+        <% } %>
+    </main>
 </body>
 </html>

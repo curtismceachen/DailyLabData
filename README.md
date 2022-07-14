@@ -1,12 +1,10 @@
-# Project-2
-
 Daily Lab Data
 
-This project is a storage site for water treatment plant lab data. Each day plant operators conduct a series of lab tests on the water they're treating, and record the results on paper. This web application allows them to backup this data on the cloud in order to better protect it.
+This project is a storage site for wastewater treatment plant lab data. Each day plant operators conduct a series of lab tests on the water they're treating, and record the results on paper. This web application allows them to backup this data on the cloud in order to better protect it.
 
 Once users have signed in to a Google account, they can add, delete, or update lab results.
 
-Technologies used include npm, express generator, mongoose, Google's OAuth + Passport.
+Technologies used include MongoDB/Mongoose, Express Generator, Node.js, and Google's OAuth + Passport.
 
 https://trello.com/b/mF8w075m/project-2
 
@@ -16,6 +14,5 @@ https://tp-lab-data.herokuapp.com/
 
 Icebox items:
 
-- actual user authorization rather then an error page
-- fix update functionality
-- more styling on the landing page
+- expand user authentication to include user authorization as well
+- complete update functionality

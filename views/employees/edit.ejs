@@ -21,6 +21,12 @@
   <label>Date:
     <input type="date" name="date" value="<%= lab.date %>">
   </label><br>
+  <label>Employee Name:
+    <input type="text" name="employeeName" value="<%= employee.name %>" readonly>
+  </label><br>
+  <label>
+    <input type="hidden" name="employeeId" value="<%= employee._id %>" readonly>
+  </label>
   <input type="submit" value="Add lab results">
 </form>
 

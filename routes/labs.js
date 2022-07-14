@@ -9,7 +9,7 @@ router.get('/:id', labsCtrl.show)
 router.post('/:id', labsCtrl.create)
 router.delete('/:id', labsCtrl.delete)
 router.get('/:id/edit', labsCtrl.edit)
-router.put(':/id', labsCtrl.update)
+router.put('/:id', labsCtrl.update)
 
 
 module.exports = router;

@@ -1,3 +1,4 @@
+const employee = require('../models/employee');
 const Employee = require('../models/employee');
 
 module.exports = {
@@ -34,7 +35,7 @@ function index(req, res) {
 
 function show(req, res) {
   let lab = req.user.labs.id(req.params.id)
-  console.log(lab)
+  console.log("This is the lab", lab)
   Employee.findById(req.user.id, function(err, employee) {
     console.log("THIS IS THE USER ID", req.user.labs)
     let myLab = employee.labs.id(req.params.id)
@@ -53,17 +54,45 @@ function deleteLab(req, res) {
 }
 
 function edit(req, res) {
+  // perhaps make that req.params.id to stop error from occurring, then
+  // everyone can change/alter lab results
   Employee.findById(req.user.id, function(err, employee) {
-    res.render('employees/edit', {lab: employee.labs.id(req.params.id), user: req.user})
+    console.log(" EMPLOYEE", employee)
+    res.render('employees/edit', {employee, lab: employee.labs.id(req.params.id), user: req.user})
   })
 }
 
 function update(req, res) {
-  Employee.findById(req.user.id, function(err, employee) {
-    //let myLab = employee.labs.id(req.params.id)
-    employee.save(function(err) {
-      res.redirect('/labs')
-    })
-    //res.render('employees/show', { employee, user: req.user, myLab })
-  })
+  console.log("this is req.body", req.body)
+  // console.log("this is req.params.id", req.params.id)
+  // Employee.findById(req.body.employeeId, function(err, employee) {
+  //   console.log("This is it", employee)
+  //   employee.labs.id(req.params.id).update({
+  //         // employee.labs.findByIdAndUpdate(req.params.id, {
+  //     reactPh: req.body.reactPh,
+  //     pH: req.body.pH,
+  //     temperature: req.body.temperature,
+  //     dissOx: req.body.dissOx,
+  //     ammonia: req.body.ammonia,
+  //     date: req.body.date,
+  //   })
+  //   employee.save(function(err) {
+      res.redirect('/labs');
+  //   })
+  // })
 }
+  
+  
+
+
+
+
+// Employee.findByIdAndUpdate(req.params.id, function(err, employee) {
+          // let myLab = employee.labs.id(req.params.id)
+      // console.log("req.params.id", req.params.id)
+      // employee.save(function(err) {
+      // res.redirect('/labs')
+    // })
+          //res.render('employees/show', { employee, user: req.user, myLab })
+  // })
+// }
