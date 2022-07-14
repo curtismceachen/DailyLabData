@@ -6,10 +6,10 @@ Once users have signed in to a Google account, they can add, delete, or update l
 
 Technologies used include MongoDB/Mongoose, Express Generator, Node.js, and Google's OAuth + Passport.
 
-https://trello.com/b/mF8w075m/project-2
 
-https://dashboard.heroku.com/apps/tp-lab-data
-https://tp-lab-data.herokuapp.com/
+Link to deployed app: https://tp-lab-data.herokuapp.com/
+
+https://trello.com/b/mF8w075m/project-2
 
 
 Icebox items:
