@@ -81,18 +81,3 @@ function update(req, res) {
   //   })
   // })
 }
-  
-  
-
-
-
-
-// Employee.findByIdAndUpdate(req.params.id, function(err, employee) {
-          // let myLab = employee.labs.id(req.params.id)
-      // console.log("req.params.id", req.params.id)
-      // employee.save(function(err) {
-      // res.redirect('/labs')
-    // })
-          //res.render('employees/show', { employee, user: req.user, myLab })
-  // })
-// }

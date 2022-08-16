@@ -15,4 +15,4 @@ https://trello.com/b/mF8w075m/project-2
 Icebox items:
 
 - expand user authentication to include user authorization as well
-- complete update functionality
+- debug update functionality
