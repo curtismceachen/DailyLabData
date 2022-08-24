@@ -9,10 +9,8 @@ Technologies used include MongoDB/Mongoose, Express Generator, Node.js, and Goog
 
 Link to deployed app: https://tp-lab-data.herokuapp.com/
 
-https://trello.com/b/mF8w075m/project-2
-
 
 Icebox items:
 
-- expand user authentication to include user authorization as well
-- debug update functionality
+- expand user authentication to include more user authorization as well
+- create functionality that will take the MLSS and wasting volumes and develop a relationship between the two, and use that to tell the operator how much to waste that day
