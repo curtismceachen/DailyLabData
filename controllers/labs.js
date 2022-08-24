@@ -1,4 +1,4 @@
-const employee = require('../models/employee');
+// const employee = require('../models/employee');
 const Employee = require('../models/employee');
 
 module.exports = {
@@ -63,21 +63,15 @@ function edit(req, res) {
 }
 
 function update(req, res) {
-  console.log("this is req.body", req.body)
-  // console.log("this is req.params.id", req.params.id)
-  // Employee.findById(req.body.employeeId, function(err, employee) {
-  //   console.log("This is it", employee)
-  //   employee.labs.id(req.params.id).update({
-  //         // employee.labs.findByIdAndUpdate(req.params.id, {
-  //     reactPh: req.body.reactPh,
-  //     pH: req.body.pH,
-  //     temperature: req.body.temperature,
-  //     dissOx: req.body.dissOx,
-  //     ammonia: req.body.ammonia,
-  //     date: req.body.date,
-  //   })
-  //   employee.save(function(err) {
+  Employee.updateOne({ _id: req.body.employeeId, 'labs._id': req.params.id },
+    { $set: {
+      'labs.$.reactPh': req.body.reactPh,
+      'labs.$.pH': req.body.pH,
+      'labs.$.temperature': req.body.temperature,
+      'labs.$.dissOx': req.body.dissOx,
+      'labs.$.ammonia': req.body.ammonia,
+      'labs.$.date': req.body.date,
+  }}, (err) => {
       res.redirect('/labs');
-  //   })
-  // })
+  })
 }
