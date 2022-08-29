@@ -1,4 +1,3 @@
-// const employee = require('../models/employee');
 const Employee = require('../models/employee');
 
 module.exports = {
@@ -34,34 +33,30 @@ function index(req, res) {
 function show(req, res) {
   Employee.findById(req.user.id, function(err, employee) {
     let myLab = employee.labs.id(req.params.id)
-    // console.log("This is req.body and then req.params" + req.body, req.params)
-    res.render('employees/show', { employee, user: req.user, myLab })
+    res.render('employees/show', { 
+      employee, 
+      user: req.user, 
+      myLab 
+    })
   })
 }
 
 function deleteLab(req, res) {
   Employee.findById(req.user.id, function(err, employee) {
-    console.log("here it is")
-    if(employee.labs.id(req.params.id)) {
-      employee.labs.id(req.params.id).remove()
-      employee.save(function(err) {
-        res.redirect('/labs')
-      })
-    } else {
-      res.redirect(req.get('referer'))
-      // alert("Employees can delete only their own lab entries.")
-    }
+    employee.labs.id(req.params.id).remove()
+    employee.save(function(err) {
+      res.redirect('/labs')
+    })
   })
 }
 
 function edit(req, res) {
   Employee.findById(req.user.id, function(err, employee) {
-    if(employee.labs.id(req.params.id)) {
-      res.render('employees/edit', {employee, lab: employee.labs.id(req.params.id), user: req.user})
-    } else {
-      res.redirect('employees/show')
-      alert("Employees can edit only their own lab entries.")
-    }
+    res.render('employees/edit', {
+      employee, 
+      lab: employee.labs.id(req.params.id), 
+      user: req.user
+    })
   })
 }
 

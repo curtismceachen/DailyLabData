@@ -11,7 +11,6 @@ require('dotenv').config()
 
 
 var indexRouter = require('./routes/index');
-var employeesRouter = require('./routes/employees');
 var labsRouter = require('./routes/labs')
 
 var app = express();
@@ -38,7 +37,6 @@ app.use(passport.session());
 app.use(methodOverride('_method'))
 
 app.use('/', indexRouter);
-app.use('/employees', employeesRouter);
 app.use('/labs', labsRouter);
 
 // catch 404 and forward to error handler
