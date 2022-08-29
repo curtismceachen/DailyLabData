@@ -1,42 +1,45 @@
 <%- include('../partials/header') %>
 <h1>Daily Lab Data</h1>
 <% if (employees.length) { %>
-<table class="centered">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Reactive<br>Phosphorous</th>
-        <th>pH</th>
-        <th>Ammonia</th>
-        <th>Temperature<br>(°C)</th>
-        <th>DO</th>
-        <th>Employee</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% employees.forEach(function(e) { %>
-        <% if (e.labs.length) { %>
-          <% e.labs.forEach(function(l) { %>
-        <tr>
-          <td class="ellipsis"><%= l.date %></td>
-          <td><%= l.reactPh %></td>
-          <td><%= l.pH %></td>
-          <td><%= l.ammonia %></td>
-          <td><%= l.temperature %></td>
-          <td><%= l.dissOx %></td>
-          <td><%= e.name %></td>
-          <td><a href="/labs/<%= l._id %>">DETAILS</a></td>
-          <td><form action="/labs/<%= l._id %>?_method=DELETE" method="POST">
-            <button type="submit">Delete</button></td>
-          </form>
-        </tr>
-          <% }) %>
-          <% } %>
-        <% }); %>
-      </tbody>
-    </table>
+<table class="centered table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Reactive Phosphorous</th>
+      <th>pH</th>
+      <th>Ammonia</th>
+      <th>Temperature (°C)</th>
+      <th>DO</th>
+      <th>MLSS</th>
+      <th>Waste Volume (m3)</th>
+      <th>Employee</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% employees.forEach(function(e) { %>
+      <% if (e.labs.length) { %>
+        <% e.labs.forEach(function(l) { %>
+          <tr>
+            <td class="ellipsis"><%= l.date %></td>
+            <td><%= l.reactPh %></td>
+            <td><%= l.pH %></td>
+            <td><%= l.ammonia %></td>
+            <td><%= l.temperature %></td>
+            <td><%= l.dissOx %></td>
+            <td><%= l.mlss %></td>
+            <td><%= l.wasteVol %></td>
+            <td><%= e.name %></td>
+            <% if (user.id === e.id) { %>
+            <td><a href="/labs/<%= l._id %>">DETAILS</a></td>
+            <% } %>
+          </tr>
+        <% }) %>
+      <% } %>
+    <% }); %>
+  </tbody>
+</table>
 <% } else { %>
-    <h5>Sign In And Post A Lab Entry</h5>
+  <h5>Sign In And Post A Lab Entry</h5>
 <% } %>
 <%- include('../partials/footer') %>

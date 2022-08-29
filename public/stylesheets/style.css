@@ -17,3 +17,8 @@ a {
 .background-img {
   background-image: url("https://t3.ftcdn.net/jpg/03/15/66/96/360_F_315669632_zpQL6tY63tJEInUk64OBSq05fglGaFVP.jpg;");
 }
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+}

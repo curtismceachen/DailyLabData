@@ -6,6 +6,8 @@ var labSchema = new mongoose.Schema({
     temperature: Number,
     dissOx: Number,
     ammonia: Number,
+    mlss: Number,
+    wasteVol: Number,
     date: Date,
 })
 
