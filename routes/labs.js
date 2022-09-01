@@ -4,6 +4,7 @@ var router = express.Router();
 let labsCtrl = require('../controllers/labs')
 
 router.get('/', labsCtrl.index)
+router.post('/wasteVolCalc', labsCtrl.wasteVolCalc)
 router.get('/new', labsCtrl.new)
 router.get('/:id', labsCtrl.show)
 router.post('/:id', labsCtrl.create)

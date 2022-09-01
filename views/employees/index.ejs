@@ -1,6 +1,5 @@
 <%- include('../partials/header') %>
-<h1>Daily Lab Data</h1>
-<% if (employees.length) { %>
+<!-- <h4>Lab Entries</h4> -->
 <table class="centered table">
   <thead>
     <tr>
@@ -19,7 +18,9 @@
   <tbody>
     <% employees.forEach(function(e) { %>
       <% if (e.labs.length) { %>
-        <% e.labs.forEach(function(l) { %>
+        <% let labs = e.labs %>
+        <% const sortedLabs = labs.sort((a, b) => a.date - b.date) %>
+        <% sortedLabs.forEach(function(l) { %>
           <tr>
             <td class="ellipsis"><%= l.date %></td>
             <td><%= l.reactPh %></td>
@@ -36,10 +37,45 @@
           </tr>
         <% }) %>
       <% } %>
-    <% }); %>
+    <% }) %>
   </tbody>
 </table>
-<% } else { %>
-  <h5>Sign In And Post A Lab Entry</h5>
-<% } %>
+<div class="row" id="wasteVolCalculator">
+  <div class="col s12 m6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">MLSS-Wasting Calculator</span>
+        <form action="/labs/wasteVolCalc" method="POST">
+          <div id="form">
+            <div class="row">
+              <div class="input-field col s6">
+                <label class="active">Current MLSS
+                  <input type="number" step="0.01" name="currMLSS" value="<%= currMLSS %>">
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6" id="targetMLSS">
+                <label class="active">Target MLSS
+                  <input type="number" step="0.01" name="targetMLSS" value="<%= targetMLSS %>">
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6" id="submit">
+                <button type="submit" class="btn waves-effect waves-light">Submit</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="card-action">
+          <% if (finalWasteVol) { %>
+            <div>In order to achieve <b><%= targetMLSS %> MLSS</b>, you will need a waste volume of <b><%= finalWasteVol %> m3</b> today.</div>
+          <% } %>
+        <div id="description">This calculator uses an algorithm formulated with the previous waste volumes and resulting day-to-day MLSS changes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <%- include('../partials/footer') %>
