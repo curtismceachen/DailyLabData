@@ -10,25 +10,25 @@
 </head>
 
 <body>
-    <nav>
-      <ul>
-        <li>
-          <a href="/">Daily Lab Data</a>
-        </li>
-        <li>
-          <a href="/labs">View Lab Entries</a>
-        </li>
-        <li>
-          <a href="/labs/new">Create Lab Entry</a>
-        </li>
-      </ul>
-      <ul class="right">
-        <li>
-        <% if (user) { %>
-          <a href="/logout">Log Out</a>
-        <% } else { %>
-          <a href="/auth/google">Login with Google</a>
-        <% } %>
-        </li>
-      </ul>
-    </nav>
+  <nav>
+    <ul>
+      <li>
+        <a href="/">Daily Lab Data</a>
+      </li>
+      <li>
+        <a href="/labs">View Lab Entries</a>
+      </li>
+      <li>
+        <a href="/labs/new">Create Lab Entry</a>
+      </li>
+    </ul>
+    <ul class="right">
+      <li>
+      <% if (user) { %>
+        <a href="/logout">Log Out</a>
+      <% } else { %>
+        <a href="/auth/google">Login with Google</a>
+      <% } %>
+      </li>
+    </ul>
+  </nav>

@@ -27,7 +27,7 @@
       <td><%= employee.name %></td>
       <td><a href="/labs/<%= myLab._id %>/edit">Edit</a></td>
       <td><form action="/labs/<%= myLab._id %>?_method=DELETE" method="POST">
-        <button type="submit">Delete</button>
+        <button type="submit" class="btn-small waves-effect waves-light red">Delete</button>
       </form></td>
     </tr>
   </tbody>

@@ -7,6 +7,17 @@ a {
   color: #00B7FF;
 }
 
+nav {
+  position: sticky;
+  top: 0;
+}
+
+th {
+  position: sticky;
+  top: 55px;
+  background: white;
+}
+
 .ellipsis {
   white-space: nowrap;
   overflow: hidden;
@@ -48,5 +59,6 @@ a {
 }
 
 #description {
-  margin-top: 10px
+  margin-top: 25px;
+  /* border: 2px black solid; */
 }
