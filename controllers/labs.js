@@ -1,3 +1,4 @@
+const { listeners } = require('../models/employee');
 const Employee = require('../models/employee');
 
 module.exports = {
@@ -27,11 +28,32 @@ function create(req, res) {
 
 function index(req, res) {
   Employee.find({}, function(err, employees) {
+    // map a new array of lab objects with the parent employee id
+    // and name included in each lab object
+    let labsIndex = employees.flatMap(function(e) {
+      return e.labs.map(function(l){
+        return {
+          employeeId: e.id, 
+          name: e.name,
+          id: l.id,
+          reactPh: l.reactPh,
+          pH: l.pH,
+          temperature: l.temperature,
+          dissOx: l.dissOx,
+          ammonia: l.ammonia,
+          mlss: l.mlss,
+          wasteVol: l.wasteVol,
+          date: l.date
+        }
+      })
+    })
+    labsIndex.sort((a, b) => a.date - b.date)
     let finalWasteVol = 0
     let currMLSS = 0
     let targetMLSS = 0
     res.render('employees/index', { 
-      employees, 
+      employees,
+      labsIndex,
       user: req.user, 
       finalWasteVol,
       currMLSS,
@@ -41,18 +63,36 @@ function index(req, res) {
 }
 
 function wasteVolCalc(req, res) {
-  console.log("I MADE IT HERE")
   Employee.find({}, function(err, employees) {
-    const mlss = employees.flatMap(function(e) {
-      return e.labs.map(function(l) {
-        return l.mlss
+    // map a new array of lab objects with the parent employee id
+    // and name included in each lab object
+    let labsIndex = employees.flatMap(function(e) {
+      return e.labs.map(function(l){
+        return {
+          employeeId: e.id, 
+          name: e.name,
+          id: l.id,
+          reactPh: l.reactPh,
+          pH: l.pH,
+          temperature: l.temperature,
+          dissOx: l.dissOx,
+          ammonia: l.ammonia,
+          mlss: l.mlss,
+          wasteVol: l.wasteVol,
+          date: l.date
+        }
       })
     })
-    const wasteVol = employees.flatMap(function(e) {
-      return e.labs.map(function(l) {
-        return l.wasteVol
-      })
+    labsIndex.sort((a, b) => a.date - b.date)
+    console.log("THIS IS labsINDEX " + labsIndex)
+    let mlss = labsIndex.map(function(l) {
+      return l.mlss
     })
+    console.log(mlss)
+    let wasteVol = labsIndex.map(function(l) {
+      return l.wasteVol
+    })
+    
     const mlssOne = mlss.slice(1, Infinity)
     const mlssTwo = mlss.slice(0, mlss.length - 1)
     const yValues = mlssOne.map(function (num, idx) { 
@@ -83,8 +123,8 @@ function wasteVolCalc(req, res) {
     }
 
     res.render('employees/index', {
-      employees, 
-      user: req.user, 
+      labsIndex,
+      user: req.user,
       finalWasteVol,
       currMLSS: req.body.currMLSS,
       targetMLSS: req.body.targetMLSS

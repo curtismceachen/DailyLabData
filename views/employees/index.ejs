@@ -16,30 +16,25 @@
     </tr>
   </thead>
   <tbody>
-    <% employees.forEach(function(e) { %>
-      <% if (e.labs.length) { %>
-        <% let labs = e.labs %>
-        <% const sortedLabs = labs.sort((a, b) => a.date - b.date) %>
-        <% sortedLabs.forEach(function(l) { %>
-          <tr>
-            <td class="ellipsis"><%= l.date %></td>
-            <td><%= l.reactPh %></td>
-            <td><%= l.pH %></td>
-            <td><%= l.ammonia %></td>
-            <td><%= l.temperature %></td>
-            <td><%= l.dissOx %></td>
-            <td><%= l.mlss %></td>
-            <td><%= l.wasteVol %></td>
-            <td><%= e.name %></td>
-            <% if (user.id === e.id) { %>
-            <td><a href="/labs/<%= l._id %>">DETAILS</a></td>
-            <% } %>
-          </tr>
-        <% }) %>
+    <% labsIndex.forEach(function(l) { %>
+      <tr>
+        <td class="ellipsis"><%= l.date %></td>
+        <td><%= l.reactPh %></td>
+        <td><%= l.pH %></td>
+        <td><%= l.ammonia %></td>
+        <td><%= l.temperature %></td>
+        <td><%= l.dissOx %></td>
+        <td><%= l.mlss %></td>
+        <td><%= l.wasteVol %></td>
+        <td><%= l.name %></td>
+      <% if (user.id === l.employeeId) { %>
+        <td><a href="/labs/<%= l.id %>">DETAILS</a></td>
       <% } %>
-    <% }) %>
+      </tr>
+    <% }) %>  
   </tbody>
 </table>
+  
 <div class="row" id="wasteVolCalculator">
   <div class="col s12 m6">
     <div class="card">
@@ -61,6 +56,7 @@
                 </label>
               </div>
             </div>
+            <input type="hidden" name="labsIndex" value="<%= labsIndex %>">
             <div class="row">
               <div class="input-field col s6" id="submit">
                 <button type="submit" class="btn waves-effect waves-light">Submit</button>
@@ -79,7 +75,7 @@
           <% if (finalWasteVol) { %>
             <div>In order to achieve <b><%= targetMLSS %> MLSS</b> tomorrow, you will need a waste volume of <b><%= finalWasteVol %> m3</b> today.</div>
           <% } %>
-        <div id="description">This calculator uses an algorithm formulated with the previous waste volumes and resulting day-to-day MLSS changes.</div>
+        <div id="description">This calculator uses a machine learning algorithm formulated with the previous waste volumes and resulting day-to-day MLSS changes.</div>
         </div>
       </div>
     </div>
