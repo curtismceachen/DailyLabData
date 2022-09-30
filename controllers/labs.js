@@ -1,4 +1,3 @@
-const { listeners } = require('../models/employee');
 const Employee = require('../models/employee');
 
 module.exports = {
@@ -48,16 +47,10 @@ function index(req, res) {
       })
     })
     labsIndex.sort((a, b) => a.date - b.date)
-    let finalWasteVol = 0
-    let currMLSS = 0
-    let targetMLSS = 0
     res.render('employees/index', { 
       employees,
       labsIndex,
       user: req.user, 
-      finalWasteVol,
-      currMLSS,
-      targetMLSS
     })
   })
 }
@@ -84,22 +77,29 @@ function wasteVolCalc(req, res) {
       })
     })
     labsIndex.sort((a, b) => a.date - b.date)
-    console.log("THIS IS labsINDEX " + labsIndex)
-    let mlss = labsIndex.map(function(l) {
+
+    // labs with no date, mlss, or wasteVol data need to be filtered out of the
+    // array before performing the linear regression
+    let filteredLabsIndex = labsIndex.filter(function(l) {
+      if(l.mlss !== null && l.wasteVol !== null && l.date !== null) {
+        return l
+      }
+    })
+
+    let mlss = filteredLabsIndex.map(function(l) {
       return l.mlss
     })
-    console.log(mlss)
-    let wasteVol = labsIndex.map(function(l) {
+    let wasteVol = filteredLabsIndex.map(function(l) {
       return l.wasteVol
     })
     
-    const mlssOne = mlss.slice(1, Infinity)
-    const mlssTwo = mlss.slice(0, mlss.length - 1)
-    const yValues = mlssOne.map(function (num, idx) { 
+    let mlssOne = mlss.slice(1, Infinity)
+    let mlssTwo = mlss.slice(0, mlss.length - 1)
+    let yValues = mlssOne.map(function (num, idx) { 
       return num - mlssTwo[idx]
     });
-    const xValues = wasteVol.slice(0, wasteVol.length - 1)
-      
+    let xValues = wasteVol.slice(0, wasteVol.length - 1)
+    
     let n = yValues.length
     let sumX = 0
     let sumY = 0

@@ -44,15 +44,25 @@
           <div id="form">
             <div class="row">
               <div class="input-field col s6">
-                <label class="active">Current MLSS (today)
-                  <input type="number" step="0.01" name="currMLSS" value="<%= currMLSS %>">
+                <label class="active">Current MLSS (today) 
+                  <input type="number" step="0.01" name="currMLSS" 
+                  <% if (typeof currMLSS !== "undefined") { %>
+                    value="<%= currMLSS %>"
+                  <% } else { %>
+                    value="0"
+                  <% } %>>
                 </label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6" id="targetMLSS">
                 <label class="active">Target MLSS (for tomorrow)
-                  <input type="number" step="0.01" name="targetMLSS" value="<%= targetMLSS %>">
+                  <input type="number" step="0.01" name="targetMLSS" 
+                  <% if (typeof targetMLSS !== "undefined") { %>
+                    value="<%= targetMLSS %>"
+                  <% } else { %>
+                    value="0"
+                  <% } %>>
                 </label>
               </div>
             </div>
@@ -65,17 +75,21 @@
             <div class="row">
               <div class="input-field col s6" id="">
                 <div><b>Waste volume needed:</b>
-                  <div><%= finalWasteVol %> m3</div>
+                  <% if (typeof finalWasteVol !== "undefined") { %>
+                    <div><%= finalWasteVol %> m3</div>
+                  <% } else { %>
+                    <div>0 m3</div>
+                  <% } %>
                 </div>
               </div>
             </div>
           </div>
         </form>
         <div class="card-action">
-          <% if (finalWasteVol) { %>
+          <% if (typeof finalWasteVol !== 'undefined' && typeof targetMLSS !== 'undefined') { %>
             <div>In order to achieve <b><%= targetMLSS %> MLSS</b> tomorrow, you will need a waste volume of <b><%= finalWasteVol %> m3</b> today.</div>
           <% } %>
-        <div id="description">This calculator uses a machine learning algorithm formulated with the previous waste volumes and resulting day-to-day MLSS changes.</div>
+        <div id="calcDescription">This calculator uses a machine learning algorithm formulated with the previous waste volumes and resulting day-to-day MLSS changes.</div>
         </div>
       </div>
     </div>
