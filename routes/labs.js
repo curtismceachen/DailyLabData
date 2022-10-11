@@ -1,10 +1,11 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
 
 let labsCtrl = require('../controllers/labs')
 
 router.get('/', labsCtrl.index)
 router.post('/wasteVolCalc', labsCtrl.wasteVolCalc)
+router.post('/coagDoseCalc', labsCtrl.coagDoseCalc)
 router.get('/new', labsCtrl.new)
 router.get('/:id', labsCtrl.show)
 router.post('/:id', labsCtrl.create)

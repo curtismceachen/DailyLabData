@@ -1,13 +1,13 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose')
 
 var labSchema = new mongoose.Schema({
-    reactPh: Number,
     pH: Number,
-    temperature: Number,
-    dissOx: Number,
     ammonia: Number,
     mlss: Number,
     wasteVol: Number,
+    inletTurbidity: Number,
+    outletTurbidity: Number,
+    coagDose: Number,
     date: Date,
 })
 
@@ -19,4 +19,4 @@ var employeeSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('Employee', employeeSchema);
+module.exports = mongoose.model('Employee', employeeSchema)

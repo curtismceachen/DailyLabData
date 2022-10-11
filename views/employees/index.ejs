@@ -1,16 +1,15 @@
 <%- include('../partials/header') %>
-<!-- <h4>Lab Entries</h4> -->
 <table class="centered table">
   <thead>
     <tr>
       <th>Date</th>
-      <th>Reactive Phosphorous</th>
       <th>pH</th>
-      <th>Ammonia</th>
-      <th>Temperature (°C)</th>
-      <th>DO</th>
+      <th>Ammonia (mg/L)</th>
       <th>MLSS (mL/L)</th>
       <th>Waste Volume (m3)</th>
+      <th>Inlet turbidity (NTU)</th>
+      <th>Outlet turbidity (NTU)</th>
+      <th>Coagulant Dosage (mg/L)</th>
       <th>Employee</th>
       <th></th>
     </tr>
@@ -18,14 +17,14 @@
   <tbody>
     <% labsIndex.forEach(function(l) { %>
       <tr>
-        <td class="ellipsis"><%= l.date %></td>
-        <td><%= l.reactPh %></td>
+        <td id="ellipsis"><%= l.date %></td>
         <td><%= l.pH %></td>
         <td><%= l.ammonia %></td>
-        <td><%= l.temperature %></td>
-        <td><%= l.dissOx %></td>
         <td><%= l.mlss %></td>
         <td><%= l.wasteVol %></td>
+        <td><%= l.inletTurbidity %></td>
+        <td><%= l.outletTurbidity %></td>
+        <td><%= l.coagDose %></td>
         <td><%= l.name %></td>
       <% if (user.id === l.employeeId) { %>
         <td><a href="/labs/<%= l.id %>">DETAILS</a></td>
@@ -35,16 +34,73 @@
   </tbody>
 </table>
   
-<div class="row" id="wasteVolCalculator">
-  <div class="col s12 m6">
+<div class="row calculators">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Coagulant Dosage Calculator</span>
+        <form action="/labs/coagDoseCalc" method="POST">
+          <div class="form">
+            <div class="row">
+              <div class="input-field col s6">
+                <label class="active">Inlet turbidity (NTU)
+                  <input type="number" step="0.01" name="inletTurbidity" 
+                  <% if (typeof inletTurbidity !== "undefined") { %>
+                    value="<%= inletTurbidity %>"
+                  <% } else { %>
+                    value="0"
+                  <% } %>>
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 calcInputTwo">
+                <label class="active">Desired outlet turbidity (NTU)
+                  <input type="number" step="0.01" name="outletTurbidity" 
+                  <% if (typeof outletTurbidity !== "undefined") { %>
+                    value="<%= outletTurbidity %>"
+                  <% } else { %>
+                    value="0"
+                  <% } %>>
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 submit">
+                <button type="submit" class="btn waves-effect waves-light">Calculate</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <div><b>Coagulant dosage needed:</b>
+                  <% if (typeof finalCoagDose !== "undefined") { %>
+                    <div><%= finalCoagDose %> mg/L</div>
+                  <% } else { %>
+                    <div>0 mg/L</div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="card-action">
+          <% if (typeof finalCoagDose !== 'undefined' && typeof outletTurbidity !== 'undefined') { %>
+            <div>In order to achieve <b><%= outletTurbidity %> NTU turbidity</b> tomorrow, you will need a coagulant dosage of <b><%= finalCoagDose %> mg/L</b> today.</div>
+          <% } %>
+        <div class="calcDescription">Built with Brain.js, this calculator estimates necessary coagulant dosage using an artificial neural network. It is trained using data from the above table, with inlet and outlet turbidity levels as inputs, and coagulant dosages as output.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s6">
     <div class="card">
       <div class="card-content">
         <span class="card-title">MLSS-Wasting Calculator</span>
         <form action="/labs/wasteVolCalc" method="POST">
-          <div id="form">
+          <div class="form">
             <div class="row">
               <div class="input-field col s6">
-                <label class="active">Current MLSS (today) 
+                <label class="active">Current MLSS (today)
                   <input type="number" step="0.01" name="currMLSS" 
                   <% if (typeof currMLSS !== "undefined") { %>
                     value="<%= currMLSS %>"
@@ -55,7 +111,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="input-field col s6" id="targetMLSS">
+              <div class="input-field col s6 calcInputTwo">
                 <label class="active">Target MLSS (for tomorrow)
                   <input type="number" step="0.01" name="targetMLSS" 
                   <% if (typeof targetMLSS !== "undefined") { %>
@@ -66,14 +122,13 @@
                 </label>
               </div>
             </div>
-            <input type="hidden" name="labsIndex" value="<%= labsIndex %>">
             <div class="row">
-              <div class="input-field col s6" id="submit">
-                <button type="submit" class="btn waves-effect waves-light">Submit</button>
+              <div class="input-field col s6 submit">
+                <button type="submit" class="btn waves-effect waves-light">Calculate</button>
               </div>
             </div>
             <div class="row">
-              <div class="input-field col s6" id="">
+              <div class="input-field col s6">
                 <div><b>Waste volume needed:</b>
                   <% if (typeof finalWasteVol !== "undefined") { %>
                     <div><%= finalWasteVol %> m3</div>
@@ -89,10 +144,11 @@
           <% if (typeof finalWasteVol !== 'undefined' && typeof targetMLSS !== 'undefined') { %>
             <div>In order to achieve <b><%= targetMLSS %> MLSS</b> tomorrow, you will need a waste volume of <b><%= finalWasteVol %> m3</b> today.</div>
           <% } %>
-        <div id="calcDescription">This calculator uses a machine learning algorithm formulated with the previous waste volumes and resulting day-to-day MLSS changes.</div>
+        <div class="calcDescription">This calculator uses a linear regression machine learning algorithm formulated with the previous waste volumes and resulting day-to-day MLSS changes.</div>
         </div>
       </div>
     </div>
   </div>
+  
 </div>
 <%- include('../partials/footer') %>

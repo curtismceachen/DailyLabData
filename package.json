@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "brainjs": "^0.7.4",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.0.0",
@@ -18,6 +19,7 @@
     "morgan": "~1.9.1",
     "passport": "^0.5.2",
     "passport-google-oauth": "^2.0.0",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "uuid": "^9.0.0"
   }
 }

@@ -1,40 +1,42 @@
 <%- include('../partials/header') %>
 <h2>Edit Lab Entry</h2>
 
-<form action="/labs/<%= lab._id %>?_method=PUT" method="POST">
-
-  <label>Reactive phosphorous
-    <input type ="number" step="0.01" name="reactPh" value="<%= lab.reactPh %>">
-  </label><br>
-  <label>pH
-    <input type ="number" step="0.01" name="pH" value="<%= lab.pH %>">
-  </label><br>
-  <label>Ammonia
-    <input type ="number" step="0.01" name="ammonia" value="<%= lab.ammonia %>">
-  </label><br>
-  <label>Temperature
-    <input type ="number" step="0.01" name="temperature" value="<%= lab.temperature %>">
-  </label><br>
-  <label>Dissolved oxygen
-    <input type ="number" step="0.01" name="dissOx" value="<%= lab.dissOx %>">
-  </label><br>
-  <label>MLSS
-    <input type="number" step="0.01" name="mlss" value="<%= lab.mlss %>">
-  </label><br>
-  <label>Waste Volume (m3)
-    <input type="number" step="0.01" name="wasteVol" value="<%= lab.wasteVol %>">
-  </label><br>
-  </label>
-  <label>Date
-    <input type="date" name="date" value="<%= lab.date %>">
-  </label><br>
-  <label>Employee Name
-    <input type="text" name="employeeName" value="<%= employee.name %>" readonly>
-  </label><br>
-  <label>
-    <input type="hidden" name="employeeId" value="<%= employee._id %>" readonly>
-  </label>
-  <button type="submit" class="btn waves-effect waves-light">Update lab results</button> 
+<form action="/labs/<%= myLab._id %>?_method=PUT" method="POST">
+  <div class="row">
+    <div class="col s6">
+      <label>pH
+        <input type ="number" step="0.01" name="pH" value="<%= myLab.pH %>">
+      </label><br>
+      <label>Ammonia (mg/L)
+        <input type ="number" step="0.01" name="ammonia" value="<%= myLab.ammonia %>">
+      </label><br>
+      <label>MLSS (mL/L)
+        <input type="number" step="0.01" name="mlss" value="<%= myLab.mlss %>">
+      </label><br>
+      <label>Waste Volume (m3)
+        <input type="number" step="0.01" name="wasteVol" value="<%= myLab.wasteVol %>">
+      </label><br>
+      <label>Inlet turbidity (NTU)
+        <input type ="number" step="0.01" name="inletTurbidity" value="<%= myLab.inletTurbidity %>">
+      </label><br>
+      <label>Outlet turbidity (NTU)
+        <input type ="number" step="0.01" name="outletTurbidity" value="<%= myLab.outletTurbidity %>">
+      </label><br>
+      <label>Coagulant dosage (mg/L)
+        <input type="number" step="0.01" name="coagDose" value="<%= myLab.coagDose %>">
+      </label><br>
+      <label>Date
+        <input type="date" name="date" value="<%= myLab.date %>">
+      </label><br>
+      <label>Employee name
+        <input type="text" name="employeeName" value="<%= employee.name %>" readonly>
+      </label><br>
+      <label>
+        <input type="hidden" name="employeeId" value="<%= employee._id %>" readonly>
+      </label>
+      <button type="submit" class="btn waves-effect waves-light">Update lab results</button> 
+    </div>
+  </div>
 </form>
 
 <%- include('../partials/footer') %>

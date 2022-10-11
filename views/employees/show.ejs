@@ -3,27 +3,27 @@
   <thead>
     <tr>
       <th>Date</th>
-      <th>Reactive<br>Phosphorous</th>
       <th>pH</th>
-      <th>Ammonia</th>
-      <th>Temperature<br>(°C)</th>
-      <th>DO</th>
-      <th>MLSS</th>
-      <th>Waste<br>volume (m3)</th>
+      <th>Ammonia (mg/L)</th>
+      <th>MLSS (mL/L)</th>
+      <th>Waste volume (m3)</th>
+      <th>Inlet turbidity (NTU)</th>
+      <th>Outlet turbidity (NTU)</th>
+      <th>Coagulant dosage (mg/L)</th>
       <th>Employee</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td class="ellipsis"><%= myLab.date %></td>
-      <td><%= myLab.reactPh %></td>
+      <td id="ellipsis"><%= myLab.date %></td>
       <td><%= myLab.pH %></td>
       <td><%= myLab.ammonia %></td>
-      <td><%= myLab.temperature %></td>
-      <td><%= myLab.dissOx %></td>
       <td><%= myLab.mlss %></td>
       <td><%= myLab.wasteVol %></td>
+      <td><%= myLab.inletTurbidity %></td>
+      <td><%= myLab.outletTurbidity %></td>
+      <td><%= myLab.coagDose %></td>
       <td><%= employee.name %></td>
       <td><a href="/labs/<%= myLab._id %>/edit">Edit</a></td>
       <td><form action="/labs/<%= myLab._id %>?_method=DELETE" method="POST">

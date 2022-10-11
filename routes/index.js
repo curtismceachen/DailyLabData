@@ -1,11 +1,10 @@
-var router = require('express').Router();
-//var router = express.Router();
+var router = require('express').Router()
 let passport = require('passport')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', user: req.user });
-});
+  res.render('index', { title: 'Express', user: req.user })
+})
 
 router.get('/auth/google', passport.authenticate(
   'google',
