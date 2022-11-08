@@ -23,8 +23,8 @@ function create(req, res) {
     employee.labs.push(req.body)
     employee.save(function(err) {
       res.redirect('/labs')
-    });
-  });
+    })
+  })
 }
 
 function index(req, res) {
@@ -98,9 +98,9 @@ function wasteVolCalc(req, res) {
     
     let mlssOne = mlss.slice(1, Infinity)
     let mlssTwo = mlss.slice(0, mlss.length - 1)
-    let yValues = mlssOne.map(function (num, idx) { 
-      return num - mlssTwo[idx]
-    });
+    let yValues = mlssOne.map(function (num, index) { 
+      return num - mlssTwo[index]
+    })
     let xValues = wasteVol.slice(0, wasteVol.length - 1)
     
     // Arrays now set, begin the linear regression.
@@ -117,7 +117,7 @@ function wasteVolCalc(req, res) {
       sumXX += (xValues[i]*xValues[i])
     }
     
-    let slope = (n * sumXY - sumX * sumY) / (n*sumXX - sumX * sumX)
+    let slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX)
     let yIntercept = (sumY - slope * sumX)/n
     
     let finalWasteVol = Math.round(((req.body.targetMLSS - req.body.currMLSS) - yIntercept) / slope)
@@ -172,7 +172,6 @@ function coagDoseCalc(req, res) {
         coagDose: l.coagDose
       }
     }).slice(0, -1)
-    console.log(coagDosages)
 
     // Finalize the training data, and divide the inputs/outputs to below 1 so 
     // that Brain.js can handle them.
@@ -191,7 +190,9 @@ function coagDoseCalc(req, res) {
       learningRate: 0.005,
       errorThresh: 0.02
     })
-  
+    // hidden layers not specified, brain.js by default uses 1 hidden layer with
+    // neurons equivalent to input size
+
     const finalCoagDose = Math.round(net.run([req.body.inletTurbidity, req.body.outletTurbidity]) * 70)
     
     res.render('employees/index', {
@@ -234,8 +235,8 @@ function edit(req, res) {
 }
 
 function update(req, res) {
-  // To access embedded lab document, must pass parent employee Id and
-  // child lab Id in arguments. Also, "$" communicates that it is an element
+  // To access embedded lab document, must pass parent employee id and
+  // child lab id in arguments. Also, "$" communicates that it is an element
   // being updated, not an object.
   Employee.updateOne({ _id: req.body.employeeId, 'labs._id': req.params.id },
     { $set: {
